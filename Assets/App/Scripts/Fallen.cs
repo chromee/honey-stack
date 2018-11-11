@@ -6,34 +6,31 @@ using UniRx.Triggers;
 
 public class Fallen : MonoBehaviour
 {
+    public PlaySceneManager playSceneManager;
     public Subject<Unit> StopCheckStream = new Subject<Unit>();
 
     Rigidbody2D rigid;
-
-    public
 
     void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
 
         this.UpdateAsObservable()
-            .Where(_ => this.transform.position.y < -15)
+            .Where(_ => this.transform.position.y < -5)
             .Take(1)
-            .Subscribe(_ => GameManager.Instance.FallenStream.OnNext(Unit.Default));
+            .Subscribe(_ => playSceneManager.GameEndStream.OnNext(Unit.Default));
 
         StopCheckStream.Throttle(System.TimeSpan.FromMilliseconds(500))
             .Subscribe(_ =>
             {
                 this.UpdateAsObservable()
-                    .Where(__ => rigid.velocity.magnitude == 0)
+                    .Where(__ => rigid.velocity.magnitude < 0.001f)
                     .Take(1)
                     .Subscribe(__ =>
                     {
-                        GameManager.Instance.NextTurnStream.OnNext(Unit.Default);
+                        playSceneManager.NextTurnStream.OnNext(Unit.Default);
                         // Debug.Log($"STOP {gameObject.name}");
                     });
             });
     }
-
-
 }

@@ -55,8 +55,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 3
-  m_LinearDrag: 0.5
-  m_AngularDrag: 0.05
+  m_LinearDrag: 1
+  m_AngularDrag: 1
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -313,6 +313,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aca267e0b877af040a131194e09337fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playSceneManager: {fileID: 0}
 --- !u!212 &212628843661809152
 SpriteRenderer:
   m_ObjectHideFlags: 1
