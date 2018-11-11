@@ -21,6 +21,11 @@ public class ScoreAttackManager : MonoBehaviour
             CurrentScore.Value += 1;
         });
 
+        playSceneManager.GameEndStream.Subscribe(_ =>
+        {
+
+        });
+
         playSceneManager.GameRestartStream.Subscribe(_ =>
         {
             Init();
