@@ -649,7 +649,7 @@ PlayerSettings:
   cloudServicesEnabled:
     UNet: 1
   facebookSdkVersion: 7.9.4
-  apiCompatibilityLevel: 2
+  apiCompatibilityLevel: 3
   cloudProjectId: 26497e73-34d6-416b-bc2b-5bb74f0e6424
   projectName: honey_strap_tower_battle
   organizationId: odk-mmmm

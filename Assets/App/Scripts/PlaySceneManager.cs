@@ -87,10 +87,12 @@ public class PlaySceneManager : MonoBehaviour
         var distanceFromTop = Vector3.Distance(firstPostion, hit.point);
         var fallenHeight = fallenObj.GetComponent<SpriteRenderer>().bounds.size.y;
 
-        Instantiate(devPoint, hit.point, Quaternion.identity);
+        // Instantiate(devPoint, hit.point, Quaternion.identity);
         // Debug.Log(hit.point);
 
         firstPostion.y = hit.point.y + fallenHeight / 2;
+        if (firstPostion.y < 8)
+            firstPostion.y = 8;
 
         fallenObj.transform.position = firstPostion;
         CurrentActiveFallen = fallenObj;
@@ -99,6 +101,7 @@ public class PlaySceneManager : MonoBehaviour
 
     public void MoveCameraToJustPos()
     {
-        iTween.MoveTo(Camera.main.gameObject, iTween.Hash("y", hit.point.y, "time", 1f));
+        var y = hit.point.y > 4 ? hit.point.y : 4;
+        iTween.MoveTo(Camera.main.gameObject, iTween.Hash("y", y, "time", 1f));
     }
 }
