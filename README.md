@@ -1,1 +1,7 @@
-# Honey Strap Tower Battle
+# Honey Stack
+
+## Requirements
+
+    - Unity 2018.2.15f1
+    - UniRx
+    -
