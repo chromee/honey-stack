@@ -2,6 +2,6 @@
 
 ## Requirements
 
-    - Unity 2018.2.15f1
-    - UniRx
-    -
+- Unity 2018.2.15f1
+- UniRx
+- NCMB
