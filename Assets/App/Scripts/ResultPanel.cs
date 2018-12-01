@@ -15,7 +15,8 @@ public class ResultPanel : MonoBehaviour
 
     [SerializeField] GameObject parent;
     [SerializeField] TextMeshProUGUI scoreText;
-    [SerializeField] InputField playerName;
+    [SerializeField] GameObject scoreForm;
+    [SerializeField] JapaneseInputField playerName;
     [SerializeField] Transform scoresParent;
     [SerializeField] RectTransform scorePanel;
     [SerializeField] Image youtubeButtonImage;
@@ -47,13 +48,23 @@ public class ResultPanel : MonoBehaviour
             youtubeButtonImage.sprite = youtubeCh.sprite;
             youtubeURL = youtubeCh.url;
 
-            parent.SetActive(true);
+            StartCoroutine(ScreenCapAndShowParent());
         });
 
         playSceneManager.GameRestartStream.Subscribe(_ =>
         {
             Init();
         });
+    }
+
+    IEnumerator ScreenCapAndShowParent()
+    {
+        yield return new WaitForEndOfFrame();
+        var tex = ScreenCapture.CaptureScreenshotAsTexture();
+        naichilab.Scripts.Internal.GyazoUploader.jpgBytes = tex.EncodeToJPG();
+
+        scoreForm.SetActive(true);
+        parent.SetActive(true);
     }
 
     void Init()
@@ -106,14 +117,14 @@ public class ResultPanel : MonoBehaviour
     IEnumerator ReloadRankingAfter1minute()
     {
         yield return new WaitForSeconds(1);
+        scoreForm.SetActive(false);
         ReloadRanking();
     }
 
+    string[] tags = new string[] { "ハニスト", "HoneyStack" };
     public void OnTweet()
     {
-        parent.SetActive(false);
-        naichilab.UnityRoomTweet.TweetWithImage("YOUR-GAMEID", "ツイートサンプルです。", "unityroom");
-        parent.SetActive(true);
+        naichilab.UnityRoomTweet.TweetWithImage("YOUR-GAMEID", $"{scoreAttackManager.CurrentScore.Value}ハニストつみました", tags);
     }
 
     [DllImport("__Internal")] private static extern void OpenNewTab(string URL);
