@@ -16,7 +16,7 @@ public class ScoreAttackManager : MonoBehaviour
             Init();
         });
 
-        playSceneManager.NextTurnStream.Subscribe(_ =>
+        playSceneManager.NextTurnStream.Skip(1).Subscribe(_ =>
         {
             CurrentScore.Value += 1;
         });

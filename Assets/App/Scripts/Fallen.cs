@@ -24,6 +24,7 @@ public class Fallen : MonoBehaviour
             .Subscribe(_ =>
             {
                 this.UpdateAsObservable()
+                    .Where(__ => !playSceneManager.isGameOver)
                     .Where(__ => rigid.velocity.magnitude < 0.001f)
                     .Take(1)
                     .Subscribe(__ =>
